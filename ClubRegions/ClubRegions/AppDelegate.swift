@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,22 +16,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         if let opts = launchOptions {
             if let locationData = opts[.location] {
                 print("locationData: \(locationData)")
-                
-                // TODO:
             }
         }
         else {
             // default launch
             model.locationManager.requestPermission()
+            
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+                print("Auth for notification center is not granted, error: \(String(describing: error))")
+            }
         }
         
         model.requestRegions {[weak self] _ in
             self?.model.updateTracking()
         }
+        
+        // add observers
+        NotificationCenter.default.addObserver(observer: self, selector: #selector(didEnterLocationRegion(_:)), name: .didEnterLocationRegion)
+        NotificationCenter.default.addObserver(observer: self, selector: #selector(didExitLocationRegion(_:)), name: .didExitLocationRegion)
+        NotificationCenter.default.addObserver(observer: self, selector: #selector(willShowErrorAlertSheet(_:)), name: .willShowErrorAlertSheet)
         
         return true
     }
@@ -55,5 +63,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    // PRIVATE
+    // * SELECTOR
+    @objc private func didEnterLocationRegion(_ notification: Notification) {
+        guard let region = notification.userInfo?["region"] as? Region else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You've just entered in \(region.title) area"
+        content.body = "Please tap here and you will see useful information"
+
+        let notification = getUNotificationFrom(region: region, content: content,
+                                                trigger: UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false))
+        
+        UNUserNotificationCenter.current().add(notification) { error in
+            guard let error = error else { return }
+            
+            print("notification adding error: \(error)")
+        }
+    }
+    
+    @objc private func didExitLocationRegion(_ notification: Notification) {
+        guard let region = notification.userInfo?["region"] as? Region else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You left \(region.title) area minute ago"
+        content.body = "Please tap here and leave your opinion by rating"
+        
+        let notification = getUNotificationFrom(region: region, content: content,
+                                                trigger: UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false))
+        
+        UNUserNotificationCenter.current().add(notification) { error in
+            guard let error = error else { return }
+            
+            print("notification adding error: \(error)")
+        }
+    }
+    
+    @objc private func willShowErrorAlertSheet(_ notification: Notification) {
+        if
+            let title = notification.userInfo?["service"] as? String,
+            let message = notification.userInfo?["service"] as? String {
+            
+            window?.rootViewController?.present(UIAlertController(simpleTitle: title, message: message))
+        }
+        else {
+            window?.rootViewController?.present(UIAlertController(simpleTitle: "Unknown Error", message: "Try again later"))
+        }
+    }
+    
+    // * METHODS
+    private func getUNotificationFrom(region: Region, content: UNMutableNotificationContent, trigger: UNNotificationTrigger) -> UNNotificationRequest {
+        return UNNotificationRequest(identifier: region.id, content: content, trigger: trigger)
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // show notification in foreground
+        completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        // good practice to distinct identifier by prefix,
+        // but not in current demo case,
+        // so imagine that we have only identifiers linked to Region
+        let id = response.notification.request.identifier
+        if let _ = model.getRegionBy(id: id) {
+            // TODO: present related view controller
+        }
     }
 }

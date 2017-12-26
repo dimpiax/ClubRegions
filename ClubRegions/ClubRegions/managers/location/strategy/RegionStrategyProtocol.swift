@@ -12,7 +12,7 @@ import CoreLocation
 protocol RegionStrategyProtocol {
     func set(regions value: [Region]?)
     
-    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [CLRegion], start: [CLRegion])
+    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [Region], start: [Region])
     
     func didEnter(region: CLRegion, manager: CLLocationManager)
     func didExit(region: CLRegion, manager: CLLocationManager)

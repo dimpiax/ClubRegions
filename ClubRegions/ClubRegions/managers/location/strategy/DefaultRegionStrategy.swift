@@ -10,24 +10,28 @@ import Foundation
 import CoreLocation
 
 class DefaultRegionStrategy: RegionStrategyProtocol {
+    private let maxCount = 20
+    
     private var _regions: [Region]?
     private var _location: CLLocation?
+    
+    private var _intersectedRegions = Set<CLRegion>()
     
     func set(regions value: [Region]?) {
         _regions = value
     }
     
-    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [CLRegion], start: [CLRegion]) {
+    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [Region], start: [Region]) {
         // TODO: implement logic
         
         return (stop: [], start: [])
     }
     
     func didEnter(region: CLRegion, manager: CLLocationManager) {
-        print("did enter region")
+        _intersectedRegions.insert(region)
     }
     
     func didExit(region: CLRegion, manager: CLLocationManager) {
-        print("did exit region")
+        _intersectedRegions.remove(region)
     }
 }

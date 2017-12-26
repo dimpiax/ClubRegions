@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0401291F1FF2FC1B00C6AE27 /* NotificationCenter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401291E1FF2FC1B00C6AE27 /* NotificationCenter+.swift */; };
+		040129211FF2FCD800C6AE27 /* NSNotification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129201FF2FCD800C6AE27 /* NSNotification.Name+.swift */; };
+		040129231FF30B8800C6AE27 /* UIAlertController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129221FF30B8800C6AE27 /* UIAlertController+.swift */; };
+		040129251FF30BF700C6AE27 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129241FF30BF700C6AE27 /* UIViewController+.swift */; };
+		040129271FF30E9F00C6AE27 /* CLCircularRegion+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */; };
 		045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE711FF2DFDE007D9035 /* AppDelegate.swift */; };
 		045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE731FF2DFDE007D9035 /* ViewController.swift */; };
 		045DCE771FF2DFDE007D9035 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045DCE751FF2DFDE007D9035 /* Main.storyboard */; };
@@ -26,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0401291E1FF2FC1B00C6AE27 /* NotificationCenter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+.swift"; sourceTree = "<group>"; };
+		040129201FF2FCD800C6AE27 /* NSNotification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+.swift"; sourceTree = "<group>"; };
+		040129221FF30B8800C6AE27 /* UIAlertController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+.swift"; sourceTree = "<group>"; };
+		040129241FF30BF700C6AE27 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+.swift"; sourceTree = "<group>"; };
 		045DCE6E1FF2DFDE007D9035 /* ClubRegions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubRegions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		045DCE711FF2DFDE007D9035 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045DCE731FF2DFDE007D9035 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +67,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0401291D1FF2FC0E00C6AE27 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0401291E1FF2FC1B00C6AE27 /* NotificationCenter+.swift */,
+				040129201FF2FCD800C6AE27 /* NSNotification.Name+.swift */,
+				040129221FF30B8800C6AE27 /* UIAlertController+.swift */,
+				040129241FF30BF700C6AE27 /* UIViewController+.swift */,
+				040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		045DCE651FF2DFDD007D9035 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +98,7 @@
 		045DCE701FF2DFDE007D9035 /* ClubRegions */ = {
 			isa = PBXGroup;
 			children = (
+				0401291D1FF2FC0E00C6AE27 /* extensions */,
 				045DCE991FF2E89C007D9035 /* managers */,
 				045DCE911FF2E28C007D9035 /* data */,
 				045DCE8E1FF2E262007D9035 /* errors */,
@@ -244,14 +267,19 @@
 				045DCE8D1FF2E19B007D9035 /* Result.swift in Sources */,
 				045DCE981FF2E63E007D9035 /* DummyRequestor.swift in Sources */,
 				045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */,
+				0401291F1FF2FC1B00C6AE27 /* NotificationCenter+.swift in Sources */,
 				045DCE9B1FF2E8A4007D9035 /* LocationManager.swift in Sources */,
 				045DCE9F1FF2EEBE007D9035 /* RegionStrategyProtocol.swift in Sources */,
+				040129251FF30BF700C6AE27 /* UIViewController+.swift in Sources */,
 				045DCE961FF2E3E3007D9035 /* ServerRequestor.swift in Sources */,
 				045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */,
+				040129231FF30B8800C6AE27 /* UIAlertController+.swift in Sources */,
 				045DCE881FF2E153007D9035 /* APIRequestConnector.swift in Sources */,
 				045DCE8A1FF2E174007D9035 /* APIRequestConnectorProtocol.swift in Sources */,
 				045DCE851FF2E04A007D9035 /* MainModel.swift in Sources */,
 				045DCEA11FF2EEEC007D9035 /* DefaultRegionStrategy.swift in Sources */,
+				040129271FF30E9F00C6AE27 /* CLCircularRegion+.swift in Sources */,
+				040129211FF2FCD800C6AE27 /* NSNotification.Name+.swift in Sources */,
 				045DCE901FF2E269007D9035 /* AppError.swift in Sources */,
 				045DCE931FF2E293007D9035 /* Region.swift in Sources */,
 			);

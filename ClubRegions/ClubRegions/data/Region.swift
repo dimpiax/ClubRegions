@@ -12,5 +12,10 @@ import CoreLocation
 struct Region {
     let id: String
     let coordinate: CLLocationCoordinate2D
-    let radius: Double
+    let radius: CLLocationDistance
+    
+    let title: String
+    
+    let notifyOnEntry = true
+    let notifyOnExit = true
 }

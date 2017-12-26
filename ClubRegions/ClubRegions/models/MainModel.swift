@@ -34,6 +34,19 @@ class MainModel {
     
     func updateTracking() {
         locationManager.set(regions: regions)
-//        locationManager.refresh()
+        locationManager.update()
+    }
+    
+    func getRegionBy(id: String) -> Region? {
+        if let region = regions?.first(where: { $0.id == id }) {
+            return region
+        }
+        else {
+            // TODO:
+            // 1. lookup on persistent storage
+            // 2. lookup on server through `apiRequestConnector`
+        }
+        
+        return nil
     }
 }

@@ -14,6 +14,13 @@ class LocationManager: NSObject {
         case none, `default`, full
     }
     
+    var isWorking: Bool {
+        switch CLLocationManager.authorizationStatus() {
+            case .authorizedWhenInUse, .authorizedAlways: return true
+            default: return false
+        }
+    }
+    
     private var _regionStrategy: RegionStrategyProtocol = DefaultRegionStrategy()
     
     private lazy var _manager: CLLocationManager = {
@@ -29,6 +36,18 @@ class LocationManager: NSObject {
     }
     
     func requestPermission() {
+        guard CLLocationManager.locationServicesEnabled() else {
+            NotificationCenter.default.post(name: .willShowErrorAlertSheet,
+                                            userInfo: ["title": "Unable Service", "message": "Location services is not enabled, please turn on in General"])
+            return
+        }
+        
+        guard CLLocationManager.isMonitoringAvailable(for: CLRegion.self) else {
+            NotificationCenter.default.post(name: .willShowErrorAlertSheet,
+                                            userInfo: ["title": "Unable Service", "message": "Location monitoring services currently is not available"])
+            return
+        }
+        
         switch CLLocationManager.authorizationStatus() {
             // request default capability
             case .notDetermined: _manager.requestWhenInUseAuthorization()
@@ -47,14 +66,24 @@ class LocationManager: NSObject {
         _regionStrategy.set(regions: value)
     }
     
+    func update() {
+        guard isWorking else { return }
+        
+        _manager.stopUpdatingLocation()
+        _manager.startUpdatingLocation()
+    }
+    
     private func updateMode(_ value: Mode) {
         switch value {
             case .default:
-                print("default mode")
+                _manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                _manager.distanceFilter = 50 // in meters
                 _manager.startUpdatingLocation()
-                fallthrough
             
-            case .full: print("full mode")
+            case .full:
+                _manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                _manager.distanceFilter = 100 // in meters
+                _manager.startUpdatingLocation()
             
             case .none: print("Location manager functions are not able")
         }
@@ -64,14 +93,14 @@ class LocationManager: NSObject {
         let regions = _regionStrategy.getSuitableRegionsWith(manager: _manager)
         
         // stop monitoring certain regions
-        regions.stop.forEach { value in
-            _manager.stopMonitoring(for: value)
-        }
+        regions.stop
+            .map { CLCircularRegion(region: $0) }
+            .forEach { _manager.stopMonitoring(for: $0) }
         
         // start monitoring certain regions
-        regions.start.forEach { value in
-            _manager.startMonitoring(for: value)
-        }
+        regions.start
+            .map { CLCircularRegion(region: $0) }
+            .forEach { _manager.startMonitoring(for: $0) }
     }
 }
 
@@ -81,7 +110,7 @@ extension LocationManager: CLLocationManagerDelegate {
             case .authorizedAlways: print("all has been setup")
             case .authorizedWhenInUse: _manager.requestAlwaysAuthorization()
             
-            default: print("didChangeAuthorization not good, status: \(status.rawValue)")
+            default: print("didChangeAuthorization not available, with status: \(status.rawValue)")
         }
     }
     
@@ -93,9 +122,11 @@ extension LocationManager: CLLocationManagerDelegate {
 extension LocationManager {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         _regionStrategy.didEnter(region: region, manager: manager)
+        NotificationCenter.default.post(name: .didEnterLocationRegion, userInfo: ["region": region])
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         _regionStrategy.didExit(region: region, manager: manager)
+        NotificationCenter.default.post(name: .didExitLocationRegion, userInfo: ["region": region])
     }
 }
