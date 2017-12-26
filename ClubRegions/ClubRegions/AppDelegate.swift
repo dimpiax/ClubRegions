@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             model.locationManager.requestPermission()
         }
         
-        model.requestRegions {[weak self] result in
+        model.requestRegions {[weak self] _ in
             self?.model.updateTracking()
         }
         

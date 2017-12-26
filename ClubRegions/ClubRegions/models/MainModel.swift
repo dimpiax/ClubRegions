@@ -33,6 +33,7 @@ class MainModel {
     }
     
     func updateTracking() {
-        
+        locationManager.set(regions: regions)
+//        locationManager.refresh()
     }
 }

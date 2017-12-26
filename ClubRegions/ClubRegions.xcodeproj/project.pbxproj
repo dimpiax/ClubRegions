@@ -21,6 +21,8 @@
 		045DCE961FF2E3E3007D9035 /* ServerRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE951FF2E3E3007D9035 /* ServerRequestor.swift */; };
 		045DCE981FF2E63E007D9035 /* DummyRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE971FF2E63E007D9035 /* DummyRequestor.swift */; };
 		045DCE9B1FF2E8A4007D9035 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE9A1FF2E8A4007D9035 /* LocationManager.swift */; };
+		045DCE9F1FF2EEBE007D9035 /* RegionStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE9E1FF2EEBE007D9035 /* RegionStrategyProtocol.swift */; };
+		045DCEA11FF2EEEC007D9035 /* DefaultRegionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCEA01FF2EEEC007D9035 /* DefaultRegionStrategy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		045DCE951FF2E3E3007D9035 /* ServerRequestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRequestor.swift; sourceTree = "<group>"; };
 		045DCE971FF2E63E007D9035 /* DummyRequestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRequestor.swift; sourceTree = "<group>"; };
 		045DCE9A1FF2E8A4007D9035 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		045DCE9E1FF2EEBE007D9035 /* RegionStrategyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStrategyProtocol.swift; sourceTree = "<group>"; };
+		045DCEA01FF2EEEC007D9035 /* DefaultRegionStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRegionStrategy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,9 +146,27 @@
 		045DCE991FF2E89C007D9035 /* managers */ = {
 			isa = PBXGroup;
 			children = (
-				045DCE9A1FF2E8A4007D9035 /* LocationManager.swift */,
+				045DCE9C1FF2EEAB007D9035 /* location */,
 			);
 			path = managers;
+			sourceTree = "<group>";
+		};
+		045DCE9C1FF2EEAB007D9035 /* location */ = {
+			isa = PBXGroup;
+			children = (
+				045DCE9D1FF2EEB4007D9035 /* strategy */,
+				045DCE9A1FF2E8A4007D9035 /* LocationManager.swift */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
+		045DCE9D1FF2EEB4007D9035 /* strategy */ = {
+			isa = PBXGroup;
+			children = (
+				045DCE9E1FF2EEBE007D9035 /* RegionStrategyProtocol.swift */,
+				045DCEA01FF2EEEC007D9035 /* DefaultRegionStrategy.swift */,
+			);
+			path = strategy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,11 +245,13 @@
 				045DCE981FF2E63E007D9035 /* DummyRequestor.swift in Sources */,
 				045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */,
 				045DCE9B1FF2E8A4007D9035 /* LocationManager.swift in Sources */,
+				045DCE9F1FF2EEBE007D9035 /* RegionStrategyProtocol.swift in Sources */,
 				045DCE961FF2E3E3007D9035 /* ServerRequestor.swift in Sources */,
 				045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */,
 				045DCE881FF2E153007D9035 /* APIRequestConnector.swift in Sources */,
 				045DCE8A1FF2E174007D9035 /* APIRequestConnectorProtocol.swift in Sources */,
 				045DCE851FF2E04A007D9035 /* MainModel.swift in Sources */,
+				045DCEA11FF2EEEC007D9035 /* DefaultRegionStrategy.swift in Sources */,
 				045DCE901FF2E269007D9035 /* AppError.swift in Sources */,
 				045DCE931FF2E293007D9035 /* Region.swift in Sources */,
 			);
