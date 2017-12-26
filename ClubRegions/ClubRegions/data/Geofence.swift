@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Region {
+struct Geofence: Regionable {
     let id: String
     let coordinate: CLLocationCoordinate2D
     let radius: CLLocationDistance

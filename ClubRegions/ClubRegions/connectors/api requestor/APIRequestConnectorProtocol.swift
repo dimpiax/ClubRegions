@@ -9,5 +9,5 @@
 import Foundation
 
 protocol APIRequestConnectorProtocol {
-    func requestRegions(completion: @escaping (Result<[Region], AppError>) -> Void)
+    func requestRegions(completion: @escaping (Result<[Geofence], AppError>) -> Void)
 }

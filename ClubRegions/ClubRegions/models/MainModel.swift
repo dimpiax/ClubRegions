@@ -9,7 +9,7 @@
 import Foundation
 
 class MainModel {
-    var regions: [Region]?
+    var regions: [Geofence]?
     
     let apiRequestConnector: APIRequestConnector = {
         let value = APIRequestConnector()
@@ -21,7 +21,7 @@ class MainModel {
     
     let locationManager = LocationManager()
     
-    func requestRegions(completion: @escaping (Result<[Region], AppError>) -> Void) {
+    func requestRegions(completion: @escaping (Result<[Geofence], AppError>) -> Void) {
         apiRequestConnector.requestRegions {[weak self] result in
             switch result {
                 case .success(let value): self?.regions = value
@@ -37,7 +37,7 @@ class MainModel {
         locationManager.update()
     }
     
-    func getRegionBy(id: String) -> Region? {
+    func getRegionBy(id: String) -> Geofence? {
         if let region = regions?.first(where: { $0.id == id }) {
             return region
         }

@@ -15,7 +15,7 @@ class APIRequestConnector: APIRequestConnectorProtocol {
         requestor = value
     }
     
-    func requestRegions(completion: @escaping (Result<[Region], AppError>) -> Void) {
+    func requestRegions(completion: @escaping (Result<[Geofence], AppError>) -> Void) {
         requestor.requestRegions(completion: completion)
     }
 }

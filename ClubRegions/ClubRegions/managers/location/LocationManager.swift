@@ -2,6 +2,9 @@
 //  LocationManager.swift
 //  ClubRegions
 //
+//  DefaultRegionStrategy.swift
+//  ClubRegions
+//
 //  Created by Dima Pilipenko on 12/26/17.
 //  Copyright © 2017 dimpiax. All rights reserved.
 //
@@ -21,7 +24,7 @@ class LocationManager: NSObject {
         }
     }
     
-    private var _regionStrategy: RegionStrategyProtocol = DefaultRegionStrategy()
+    private var _regionStrategy: RegionStrategyProtocol = DefaultGeofenceStrategy()
     
     private lazy var _manager: CLLocationManager = {
         let value = CLLocationManager()
@@ -62,7 +65,7 @@ class LocationManager: NSObject {
         _regionStrategy = value
     }
     
-    func set(regions value: [Region]?) {
+    func set(regions value: [Geofence]?) {
         _regionStrategy.set(regions: value)
     }
     

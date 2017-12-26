@@ -10,9 +10,9 @@ import Foundation
 import CoreLocation
 
 protocol RegionStrategyProtocol {
-    func set(regions value: [Region]?)
+    func set(regions value: [Geofence]?)
     
-    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [Region], start: [Region])
+    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [Geofence], start: [Geofence])
     
     func didEnter(region: CLRegion, manager: CLLocationManager)
     func didExit(region: CLRegion, manager: CLLocationManager)

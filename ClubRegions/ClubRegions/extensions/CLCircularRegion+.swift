@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 extension CLCircularRegion {
-    convenience init(region: Region) {
+    convenience init(region: Geofence) {
         self.init(center: region.coordinate, radius: region.radius, identifier: region.id)
         
         notifyOnEntry = region.notifyOnEntry

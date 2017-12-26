@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // PRIVATE
     // * SELECTOR
     @objc private func didEnterLocationRegion(_ notification: Notification) {
-        guard let region = notification.userInfo?["region"] as? Region else { return }
+        guard let region = notification.userInfo?["region"] as? Regionable else { return }
         
         let content = UNMutableNotificationContent()
         content.title = "You've just entered in \(region.title) area"
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc private func didExitLocationRegion(_ notification: Notification) {
-        guard let region = notification.userInfo?["region"] as? Region else { return }
+        guard let region = notification.userInfo?["region"] as? Regionable else { return }
         
         let content = UNMutableNotificationContent()
         content.title = "You left \(region.title) area minute ago"
@@ -103,8 +103,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc private func willShowErrorAlertSheet(_ notification: Notification) {
         if
-            let title = notification.userInfo?["service"] as? String,
-            let message = notification.userInfo?["service"] as? String {
+            let title = notification.userInfo?["title"] as? String,
+            let message = notification.userInfo?["message"] as? String {
             
             window?.rootViewController?.present(UIAlertController(simpleTitle: title, message: message))
         }
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // * METHODS
-    private func getUNotificationFrom(region: Region, content: UNMutableNotificationContent, trigger: UNNotificationTrigger) -> UNNotificationRequest {
+    private func getUNotificationFrom(region: Regionable, content: UNMutableNotificationContent, trigger: UNNotificationTrigger) -> UNNotificationRequest {
         return UNNotificationRequest(identifier: region.id, content: content, trigger: trigger)
     }
 }
