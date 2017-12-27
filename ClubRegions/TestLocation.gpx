@@ -16,4 +16,8 @@
         <name>Middle of Nowhere #4</name>
         <time>2014-09-24T14:56:07Z</time>
     </wpt>
+    <wpt lat="41.100000" lon="2.100000">
+        <name>Middle of Nowhere #5</name>
+        <time>2014-09-24T14:56:17Z</time>
+    </wpt>
 </gpx>

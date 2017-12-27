@@ -16,6 +16,7 @@
 		0401292B1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292A1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift */; };
 		0401292D1FF3209B00C6AE27 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292C1FF3209B00C6AE27 /* Double+.swift */; };
 		0401292F1FF32AB500C6AE27 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292E1FF32AB500C6AE27 /* Container.swift */; };
+		040129321FF33EAE00C6AE27 /* RandomGeofenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129311FF33EAE00C6AE27 /* RandomGeofenceStrategy.swift */; };
 		045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE711FF2DFDE007D9035 /* AppDelegate.swift */; };
 		045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE731FF2DFDE007D9035 /* ViewController.swift */; };
 		045DCE771FF2DFDE007D9035 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045DCE751FF2DFDE007D9035 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		0401292C1FF3209B00C6AE27 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		0401292E1FF32AB500C6AE27 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		040129301FF32FD000C6AE27 /* TestLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestLocation.gpx; sourceTree = "<group>"; };
+		040129311FF33EAE00C6AE27 /* RandomGeofenceStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGeofenceStrategy.swift; sourceTree = "<group>"; };
 		045DCE6E1FF2DFDE007D9035 /* ClubRegions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubRegions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		045DCE711FF2DFDE007D9035 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045DCE731FF2DFDE007D9035 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				045DCE921FF2E293007D9035 /* Geofence.swift */,
+				040129281FF314D900C6AE27 /* Regionable.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -192,7 +195,6 @@
 			children = (
 				045DCE9D1FF2EEB4007D9035 /* strategy */,
 				045DCE9A1FF2E8A4007D9035 /* LocationManager.swift */,
-				040129281FF314D900C6AE27 /* Regionable.swift */,
 			);
 			path = location;
 			sourceTree = "<group>";
@@ -202,6 +204,7 @@
 			children = (
 				045DCE9E1FF2EEBE007D9035 /* RegionStrategyProtocol.swift */,
 				045DCEA01FF2EEEC007D9035 /* DefaultGeofenceStrategy.swift */,
+				040129311FF33EAE00C6AE27 /* RandomGeofenceStrategy.swift */,
 			);
 			path = strategy;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				045DCE9F1FF2EEBE007D9035 /* RegionStrategyProtocol.swift in Sources */,
 				040129251FF30BF700C6AE27 /* UIViewController+.swift in Sources */,
 				0401292F1FF32AB500C6AE27 /* Container.swift in Sources */,
+				040129321FF33EAE00C6AE27 /* RandomGeofenceStrategy.swift in Sources */,
 				045DCE961FF2E3E3007D9035 /* ServerRequestor.swift in Sources */,
 				045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */,
 				040129231FF30B8800C6AE27 /* UIAlertController+.swift in Sources */,

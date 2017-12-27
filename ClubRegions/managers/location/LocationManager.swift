@@ -25,6 +25,7 @@ class LocationManager: NSObject {
     }
     
     private var _regionStrategy: RegionStrategyProtocol = DefaultGeofenceStrategy()
+//    private var _regionStrategy: RegionStrategyProtocol = RandomGeofenceStrategy()
     
     private lazy var _manager: CLLocationManager = {
         let value = CLLocationManager()
