@@ -10,28 +10,60 @@ import Foundation
 import CoreLocation
 
 class DefaultGeofenceStrategy: RegionStrategyProtocol {
-    private let maxCount = 20
+    private let maxCount = 10
+    private let visibleRadius: CLLocationDistance = 5000 // in meters
     
-    private var _regions: [Geofence]?
-    private var _location: CLLocation?
+    private var _regions: Set<CLRegion>?
     
-    private var _intersectedRegions = Set<CLRegion>()
-    
-    func set(regions value: [Geofence]?) {
+    func set(regions value: Set<CLRegion>?) {
         _regions = value
     }
     
-    func getSuitableRegionsWith(manager: CLLocationManager) -> (stop: [Geofence], start: [Geofence]) {
+    func getSuitableRegionsWith(manager: CLLocationManager) throws -> (stop: Set<CLRegion>, start: Set<CLRegion>) {
+        guard let location = manager.location, let regions = _regions else {
+            throw AppError.badAccess
+        }
         
+        // get near geofences
+        let userCoordinate = location.coordinate
         
-        return (stop: [], start: [])
+        let visibleRegions = Set(regions.flatMap { $0 as? CLCircularRegion })
+            .filter { region in
+                userCoordinate.intersectsWith(radius: visibleRadius, circularLocation: (region.center, region.radius))
+            }
+        
+        let monitoredRegions = manager.monitoredRegions.flatMap { $0 as? CLCircularRegion }
+        
+        let result = monitoredRegions.reduce(Container<CLCircularRegion>()) { sum, region -> Container<CLCircularRegion> in
+            let isUserSeeing = userCoordinate.intersectsWith(radius: visibleRadius, circularLocation: (region.center, region.radius))
+            if isUserSeeing {
+                // set to white bucket
+                sum.white.insert(region)
+            }
+            else {
+                // set to black bucket
+                sum.black.insert(region)
+            }
+            return sum
+        }
+        
+        let existRegions = result.white
+        
+        // distinct newer regions
+        let allowedRegions = visibleRegions.subtracting(existRegions)
+        
+        // limit by max allowed count and free space for insert
+        let freeCount = min(maxCount, max(0, maxCount - existRegions.count))
+        let startRegions = Set(allowedRegions.prefix(freeCount))
+        
+        return (stop: result.black, start: startRegions)
     }
     
     func didEnter(region: CLRegion, manager: CLLocationManager) {
-        _intersectedRegions.insert(region)
+        // empty
     }
     
     func didExit(region: CLRegion, manager: CLLocationManager) {
-        _intersectedRegions.remove(region)
+        // empty
     }
 }

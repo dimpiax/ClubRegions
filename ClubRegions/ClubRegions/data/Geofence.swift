@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Geofence: Regionable {
+struct Geofence: Regionable, CustomStringConvertible {
     let id: String
     let coordinate: CLLocationCoordinate2D
     let radius: CLLocationDistance
@@ -18,4 +18,8 @@ struct Geofence: Regionable {
     
     let notifyOnEntry = true
     let notifyOnExit = true
+    
+    var description: String {
+        return "id: \(id), coordinate: \(coordinate)"
+    }
 }

@@ -65,8 +65,13 @@ class LocationManager: NSObject {
         _regionStrategy = value
     }
     
-    func set(regions value: [Geofence]?) {
-        _regionStrategy.set(regions: value)
+    func set(geofence value: [Geofence]?) {
+        guard let regions = value?.map({ CLCircularRegion(region: $0) }) else {
+            _regionStrategy.set(regions: nil)
+            return
+        }
+
+        _regionStrategy.set(regions: Set(regions))
     }
     
     func update() {
@@ -93,24 +98,26 @@ class LocationManager: NSObject {
     }
     
     private func updateRegions() {
-        let regions = _regionStrategy.getSuitableRegionsWith(manager: _manager)
-        
-        // stop monitoring certain regions
-        regions.stop
-            .map { CLCircularRegion(region: $0) }
-            .forEach { _manager.stopMonitoring(for: $0) }
-        
-        // start monitoring certain regions
-        regions.start
-            .map { CLCircularRegion(region: $0) }
-            .forEach { _manager.startMonitoring(for: $0) }
+        do {
+            let regions = try _regionStrategy.getSuitableRegionsWith(manager: _manager)
+            
+            // stop monitoring certain regions
+            regions.stop
+                .forEach { _manager.stopMonitoring(for: $0) }
+            
+            // start monitoring certain regions
+            regions.start
+                .forEach { _manager.startMonitoring(for: $0) }
+        } catch {
+            NotificationCenter.default.post(name: .willShowErrorAlertSheet)
+        }
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-            case .authorizedAlways: print("all has been setup")
+            case .authorizedAlways: break // means all is good
             case .authorizedWhenInUse: _manager.requestAlwaysAuthorization()
             
             default: print("didChangeAuthorization not available, with status: \(status.rawValue)")
@@ -125,11 +132,13 @@ extension LocationManager: CLLocationManagerDelegate {
 extension LocationManager {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         _regionStrategy.didEnter(region: region, manager: manager)
-        NotificationCenter.default.post(name: .didEnterLocationRegion, userInfo: ["region": region])
+        
+        NotificationCenter.default.post(name: .didEnterLocationRegion, userInfo: ["regionId": region.identifier])
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         _regionStrategy.didExit(region: region, manager: manager)
-        NotificationCenter.default.post(name: .didExitLocationRegion, userInfo: ["region": region])
+
+        NotificationCenter.default.post(name: .didExitLocationRegion, userInfo: ["regionId": region.identifier])
     }
 }

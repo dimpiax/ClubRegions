@@ -20,16 +20,19 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>For the best user experience, please allow using location when application in usage</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>For better user experience, please allow using location when application in usage</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UIViewEdgeAntialiasing</key>
-	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>For better user experience, please allow using location when application in usage</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>For the best user experience, please allow using location when application in usage</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -47,5 +50,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIViewEdgeAntialiasing</key>
+	<false/>
 </dict>
 </plist>

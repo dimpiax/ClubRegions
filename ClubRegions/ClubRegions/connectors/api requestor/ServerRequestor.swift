@@ -18,7 +18,10 @@ struct ServerRequestor: APIRequestConnectorProtocol {
             Geofence(id: "4", coordinate: CLLocationCoordinate2D(latitude: 41.040000, longitude: 2.040000), radius: 100, title: "D"),
             Geofence(id: "5", coordinate: CLLocationCoordinate2D(latitude: 41.050000, longitude: 2.050000), radius: 100, title: "E"),
             Geofence(id: "6", coordinate: CLLocationCoordinate2D(latitude: 41.060000, longitude: 2.060000), radius: 100, title: "F"),
-            Geofence(id: "7", coordinate: CLLocationCoordinate2D(latitude: 41.070000, longitude: 2.070000), radius: 100, title: "G")
+            Geofence(id: "7", coordinate: CLLocationCoordinate2D(latitude: 41.070000, longitude: 2.070000), radius: 100, title: "G"),
+            Geofence(id: "8", coordinate: CLLocationCoordinate2D(latitude: 41.080000, longitude: 2.080000), radius: 100, title: "H"),
+            Geofence(id: "9", coordinate: CLLocationCoordinate2D(latitude: 41.090000, longitude: 2.090000), radius: 100, title: "I"),
+            Geofence(id: "10", coordinate: CLLocationCoordinate2D(latitude: 41.100000, longitude: 2.100000), radius: 100, title: "J")
         ]
         
         completion(Result(value: data))

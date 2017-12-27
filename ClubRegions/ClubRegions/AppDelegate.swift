@@ -27,7 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
-                print("Auth for notification center is not granted, error: \(String(describing: error))")
+                if let error = error {
+                    print("Auth for notification center is not granted, error: \(error)")
+                }
             }
         }
         
@@ -43,39 +45,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
     // PRIVATE
     // * SELECTOR
     @objc private func didEnterLocationRegion(_ notification: Notification) {
-        guard let region = notification.userInfo?["region"] as? Regionable else { return }
+        guard
+            let regionId = notification.userInfo?["regionId"] as? String,
+            let region = model.getRegionBy(id: regionId)
+        else { return }
         
         let content = UNMutableNotificationContent()
         content.title = "You've just entered in \(region.title) area"
         content.body = "Please tap here and you will see useful information"
 
-        let notification = getUNotificationFrom(region: region, content: content,
-                                                trigger: UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false))
+        let notification = getUNotificationFrom(identifier: "\(regionId):enter", content: content,
+                                                trigger: UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false))
         
         UNUserNotificationCenter.current().add(notification) { error in
             guard let error = error else { return }
@@ -85,13 +68,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc private func didExitLocationRegion(_ notification: Notification) {
-        guard let region = notification.userInfo?["region"] as? Regionable else { return }
+        guard
+            let regionId = notification.userInfo?["regionId"] as? String,
+            let region = model.getRegionBy(id: regionId)
+        else { return }
         
         let content = UNMutableNotificationContent()
         content.title = "You left \(region.title) area minute ago"
         content.body = "Please tap here and leave your opinion by rating"
         
-        let notification = getUNotificationFrom(region: region, content: content,
+        let notification = getUNotificationFrom(identifier: "\(regionId):exit", content: content,
                                                 trigger: UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false))
         
         UNUserNotificationCenter.current().add(notification) { error in
@@ -114,8 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // * METHODS
-    private func getUNotificationFrom(region: Regionable, content: UNMutableNotificationContent, trigger: UNNotificationTrigger) -> UNNotificationRequest {
-        return UNNotificationRequest(identifier: region.id, content: content, trigger: trigger)
+    private func getUNotificationFrom(identifier: String, content: UNMutableNotificationContent, trigger: UNNotificationTrigger) -> UNNotificationRequest {
+        return UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
     }
 }
 
@@ -128,10 +114,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // good practice to distinct identifier by prefix,
         // but not in current demo case,
-        // so imagine that we have only identifiers linked to Region
-        let id = response.notification.request.identifier
-        if let _ = model.getRegionBy(id: id) {
-            // TODO: present related view controller
+        // so imagine that we have only identifiers linked to Region Id and Action
+        let identifier = response.notification.request.identifier
+        let idComponents = identifier.components(separatedBy: ":")
+        if idComponents.count == 2 {
+            let id = idComponents.first!
+            let action = idComponents.last!
+            if let region = model.getRegionBy(id: id) {
+                // TODO: present related view controller
+                print("present some controller with region: \(region.id) and title: \(region.title) for action: \(action)")
+            }
         }
+        
+        completionHandler()
     }
 }

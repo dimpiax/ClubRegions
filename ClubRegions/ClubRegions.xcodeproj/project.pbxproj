@@ -13,6 +13,9 @@
 		040129251FF30BF700C6AE27 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129241FF30BF700C6AE27 /* UIViewController+.swift */; };
 		040129271FF30E9F00C6AE27 /* CLCircularRegion+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */; };
 		040129291FF314D900C6AE27 /* Regionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040129281FF314D900C6AE27 /* Regionable.swift */; };
+		0401292B1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292A1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift */; };
+		0401292D1FF3209B00C6AE27 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292C1FF3209B00C6AE27 /* Double+.swift */; };
+		0401292F1FF32AB500C6AE27 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401292E1FF32AB500C6AE27 /* Container.swift */; };
 		045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE711FF2DFDE007D9035 /* AppDelegate.swift */; };
 		045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DCE731FF2DFDE007D9035 /* ViewController.swift */; };
 		045DCE771FF2DFDE007D9035 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045DCE751FF2DFDE007D9035 /* Main.storyboard */; };
@@ -38,6 +41,10 @@
 		040129241FF30BF700C6AE27 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+.swift"; sourceTree = "<group>"; };
 		040129281FF314D900C6AE27 /* Regionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regionable.swift; sourceTree = "<group>"; };
+		0401292A1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+.swift"; sourceTree = "<group>"; };
+		0401292C1FF3209B00C6AE27 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		0401292E1FF32AB500C6AE27 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		040129301FF32FD000C6AE27 /* TestLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestLocation.gpx; sourceTree = "<group>"; };
 		045DCE6E1FF2DFDE007D9035 /* ClubRegions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubRegions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		045DCE711FF2DFDE007D9035 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045DCE731FF2DFDE007D9035 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +84,8 @@
 				040129221FF30B8800C6AE27 /* UIAlertController+.swift */,
 				040129241FF30BF700C6AE27 /* UIViewController+.swift */,
 				040129261FF30E9F00C6AE27 /* CLCircularRegion+.swift */,
+				0401292A1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift */,
+				0401292C1FF3209B00C6AE27 /* Double+.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -100,19 +109,20 @@
 		045DCE701FF2DFDE007D9035 /* ClubRegions */ = {
 			isa = PBXGroup;
 			children = (
-				0401291D1FF2FC0E00C6AE27 /* extensions */,
-				045DCE991FF2E89C007D9035 /* managers */,
 				045DCE911FF2E28C007D9035 /* data */,
-				045DCE8E1FF2E262007D9035 /* errors */,
-				045DCE8B1FF2E192007D9035 /* utils */,
 				045DCE861FF2E148007D9035 /* connectors */,
 				045DCE831FF2E041007D9035 /* models */,
+				045DCE991FF2E89C007D9035 /* managers */,
+				0401291D1FF2FC0E00C6AE27 /* extensions */,
+				045DCE8E1FF2E262007D9035 /* errors */,
+				045DCE8B1FF2E192007D9035 /* utils */,
 				045DCE711FF2DFDE007D9035 /* AppDelegate.swift */,
 				045DCE731FF2DFDE007D9035 /* ViewController.swift */,
 				045DCE751FF2DFDE007D9035 /* Main.storyboard */,
 				045DCE781FF2DFDE007D9035 /* Assets.xcassets */,
 				045DCE7A1FF2DFDE007D9035 /* LaunchScreen.storyboard */,
 				045DCE7D1FF2DFDE007D9035 /* Info.plist */,
+				040129301FF32FD000C6AE27 /* TestLocation.gpx */,
 			);
 			path = ClubRegions;
 			sourceTree = "<group>";
@@ -137,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				045DCE8C1FF2E19B007D9035 /* Result.swift */,
+				0401292E1FF32AB500C6AE27 /* Container.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -228,6 +239,11 @@
 					045DCE6D1FF2DFDE007D9035 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -268,12 +284,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				045DCE8D1FF2E19B007D9035 /* Result.swift in Sources */,
+				0401292D1FF3209B00C6AE27 /* Double+.swift in Sources */,
 				045DCE981FF2E63E007D9035 /* DummyRequestor.swift in Sources */,
 				045DCE741FF2DFDE007D9035 /* ViewController.swift in Sources */,
 				0401291F1FF2FC1B00C6AE27 /* NotificationCenter+.swift in Sources */,
 				045DCE9B1FF2E8A4007D9035 /* LocationManager.swift in Sources */,
+				0401292B1FF31DDF00C6AE27 /* CLLocationCoordinate2D+.swift in Sources */,
 				045DCE9F1FF2EEBE007D9035 /* RegionStrategyProtocol.swift in Sources */,
 				040129251FF30BF700C6AE27 /* UIViewController+.swift in Sources */,
+				0401292F1FF32AB500C6AE27 /* Container.swift in Sources */,
 				045DCE961FF2E3E3007D9035 /* ServerRequestor.swift in Sources */,
 				045DCE721FF2DFDE007D9035 /* AppDelegate.swift in Sources */,
 				040129231FF30B8800C6AE27 /* UIAlertController+.swift in Sources */,
